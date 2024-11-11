@@ -6,4 +6,5 @@ Download MSVC Runtime all in one from above.
 2. ZLG USB CAN drive;
 3. ESS config, select device is USBCAN;
 
-Modbus Poll v10.9.4.2286 for Win x64 License Key: 5A5742575C5D136F5843535610685C49434C1232131164706378
+默认打开就是管理员权限：
+用dnspy打开ESSServer.exe, ESSServer模块下面查找PClassAll，里面 "普通用户" 上面几行，LoginUserLevel默认是3，改为1就OK。

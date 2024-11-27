@@ -1,0 +1,1 @@
+pwsh .\ReadSOC.ps1>>log.txt

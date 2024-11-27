@@ -1,0 +1,1 @@
+pwsh .\CF-DisIMM.ps1>>log.txt

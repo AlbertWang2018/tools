@@ -1,10 +1,11 @@
-https://www.123pan.com/s/A6cA-BnoJh
+如果管理员cmd窗口运行 winget install vcredist 不行，可以从这里下载安装vc运行库：
+Download MSVC Runtime all in one from here：https://www.123pan.com/s/A6cA-BnoJh
 
-Download MSVC Runtime all in one from above.
+OpenModScan: https://github.com/sanny32/OpenModScan
 
 1. VC runtime;
 2. ZLG USB CAN drive;
 3. ESS config, select device is USBCAN;
 
-默认打开就是管理员权限：
-用dnspy打开ESSServer.exe, ESSServer模块下面查找PClassAll，里面 "普通用户" 上面几行，LoginUserLevel默认是3，改为1就OK。
+ESS Admin default：
+dnspy->ESSServer.exe->ESSServer->PClassAll->"普通用户"->LoginUserLevel->3 to 1.

@@ -9,3 +9,6 @@ OpenModScan: https://github.com/sanny32/OpenModScan
 
 ESS Admin default：
 dnspy->ESSServer.exe->ESSServer->PClassAll->"普通用户"->LoginUserLevel->3 to 1.
+
+
+javascript:(function(){try{var input=prompt("Input PI num：");var num=parseInt(input);if(isNaN(num)){alert("Please enter a valid number！");return;}var x=Math.floor((num-1)/9)+1;var y=((num-1)%9)+1+"1";var newIP="10.238."+x+"."+y;var originalURL="http://10.238.2.11/tc3plchmiweb/port_851/visu/webvisu.htm";var newURL=originalURL.replace("10.238.2.11",newIP);var newWindow=window.open();newWindow.location.href=newURL;}catch(e){alert("error："+e.message);}})();

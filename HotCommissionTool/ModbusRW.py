@@ -22,23 +22,24 @@ try:
         if len(argv)>5:
             value = int(argv[5])
         client = ModbusTcpClient(host,port)
-        # client.timeout = 2  # set timeout seconds
+        client.timeout = 1  # set timeout seconds
         if mode=='read': 
             if ',' in str(reg):
                 res=[]
                 for reg in reg.split(','): 
                     res.append(client.read_holding_registers(address=int(reg),count=1).registers)
-                print(host+', '+str(res))
+                client.close()
+                print(host+', '+str(res).replace('[','').replace(']','').replace(' ',''))
             else:
-                reg = int(reg)
-                print(str(client.read_holding_registers(address=int(reg),count=value).registers).replace('[','').replace(']','').replace(' ',''))        
+                print(str(client.read_holding_registers(address=int(reg),count=int(value)).registers).replace('[','').replace(']','').replace(' ',''))
+                client.close()
         elif mode=='write': 
-            client.write_register(address=reg,value=value)
-            print(host+', '+"Write success")
-        client.close()
+            client.write_register(address=int(reg),value=int(value))
+            client.close()
+            print(host+', '+"Set OK") 
     else:
         print(usage)
 except:
-    print(host+', '+"Connect fail")
+    print(host+', Connect fail')
 finally:
     client.close()

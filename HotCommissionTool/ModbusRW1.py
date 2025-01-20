@@ -18,8 +18,7 @@ Output will be saved to modbus_results.csv
 def process_host(mode, h, port, reg, value=1):
     try:
         client = ModbusTcpClient(h, port)
-        client.timeout = 0.7
-        
+        client.timeout = 1        
         if mode == 'read':
             if ',' in str(reg):
                 res = []
@@ -29,16 +28,20 @@ def process_host(mode, h, port, reg, value=1):
                         res.append(value)
                     except Exception as e:
                         res.append('failed')
+                        break
+                client.close()
                 return {'host': h, 'values': res}
             else:
                 try:
                     value = client.read_holding_registers(address=int(reg), count=int(value)).registers[0]
+                    client.close()
                     return {'host': h, 'values': [str(value)]}
                 except Exception as e:
                     return {'host': h, 'values': ['failed']}
         elif mode == 'write': 
             try:
                 client.write_register(address=int(reg), value=int(value))
+                client.close()
                 return ['success']
             except Exception as e:
                 return ['failed']
@@ -73,9 +76,8 @@ if len(argv) >= 5:
         # Format output
         output = []
         for result in sorted_results:
-            # output.append(f"{result['host'][-2:]}-{', '.join(result['values'])}")
-            output.append(f"{', '.join(result['values'])}")
+            output.append(str(result['values']))
             
-        print(';'.join(output))
+        print(';'.join(output).replace('[','').replace(']','').replace("'",''))
 else:
     print(usage)

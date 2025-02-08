@@ -18,7 +18,7 @@ Output will be saved to modbus_results.csv
 def process_host(mode, h, port, reg, value=1):
     try:
         client = ModbusTcpClient(h, port)
-        client.timeout = 1        
+        client.timeout = 0.5       
         if mode == 'read':
             if ',' in str(reg):
                 res = []
@@ -64,7 +64,7 @@ if len(argv) >= 5:
         hosts = str(host).split(',')
         all_values = []
         
-        with ThreadPoolExecutor(max_workers=min(32, len(hosts))) as executor:
+        with ThreadPoolExecutor(max_workers=min(18, len(hosts))) as executor:
             futures = [executor.submit(process_host, mode, h, port, reg, value) for h in hosts]
             for future in as_completed(futures):
                 result = future.result()
@@ -78,6 +78,6 @@ if len(argv) >= 5:
         for result in sorted_results:
             output.append(str(result['values']))
             
-        print(';'.join(output).replace('[','').replace(']','').replace("'",''))
+        print(';'.join(output).replace('[','').replace(']','').replace("'",'').replace(" ",''))
 else:
     print(usage)

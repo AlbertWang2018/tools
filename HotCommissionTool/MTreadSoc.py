@@ -11,12 +11,12 @@ header = "IP,soc,volt,I,MaxVc,MinVc,AvgVc,soc1,soc2,soc3,soc4,soc5,volt1,volt2,v
          "RemainDischarge3,HisChargeCapL3,HisChargeCapH3,HisDischargeCapL3,HisDischargeCapH3," \
          "RemainCharge4,RemainDischarge4,HisChargeCapL4,HisChargeCapH4,HisDischargeCapL4," \
          "HisDischargeCapH4,RemainCharge5,RemainDischarge5,HisChargeCapL5,HisChargeCapH5," \
-         "HisDischargeCapL5,HisDischargeCapH5,EnvTemp"
+         "HisDischargeCapL5,HisDischargeCapH5,EnvTemp,auxpl,ChrgSOE,DisChrgSOE,CSOC1,DSOC1,CSOC2,DSOC2,CSOC3,DSOC3,CSOC4,DSOC4,CSOC5,DSOC5,TMSOutWT,TMSInWT,TMSRealMode"
 
 registers = "34,32,33,36,37,38,1059,2083,3107,4131,5155,1057,2081,3105,4129,5153," \
             "16,17,770,907,68,1078,1079,1108,1109,1110,1111,2102,2103,2132,2133," \
             "2134,2135,3126,3127,3156,3157,3158,3159,4150,4151,4180,4181,4182," \
-            "4183,5174,5175,5204,5205,5206,5207,56"
+            "4183,5174,5175,5204,5205,5206,5207,56,898,47,48,1076,1077,2100,2101,3124,3125,4148,4149,5172,5173,108,109,107"
 
 # Function to execute the modbus command
 def modbus_rw_task(q, command):
@@ -40,24 +40,22 @@ def main():
         command = f"python ModbusRW.py read {ip.strip()} 502 {registers}"
         commands.append(command)
 
-    # Create a queue and threads
+    # Create a queue and thread pool
     q = queue.Queue()
-    threads = []
-
-    # Create and start threads
-    for cmd in commands:
-        thread = threading.Thread(target=modbus_rw_task, args=(q, cmd))
-        threads.append(thread)
-        thread.start()
-
-    # Wait for all threads to finish
-    for thread in threads:
-        thread.join()
+    from concurrent.futures import ThreadPoolExecutor
+    
+    # Create and run threads with max 6 concurrent
+    with ThreadPoolExecutor(max_workers=min(18, len(ip_lines))) as executor:
+        futures = [executor.submit(modbus_rw_task, q, cmd) for cmd in commands]
+        
+        # Wait for all futures to complete
+        for future in futures:
+            future.result()
 
     # Collect results without redundant processing
     results = []
     while not q.empty():
-        result = q.get().replace('[', '').replace(']', '').replace("'", "")
+        result = q.get().replace('[', '').replace(']', '').replace("'", "").replace('"', '').replace("\n", "")
         results.append(result)
 
     # Write results to CSV and sort directly

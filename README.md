@@ -1,6 +1,7 @@
 如果管理员cmd窗口运行 winget install vcredist 不行，可以从这里下载安装vc运行库：
 Download MSVC Runtime all in one from here：https://www.123pan.com/s/A6cA-BnoJh
-install .Net3.5:  Dism /online /Enable-Feature /FeatureName:"NetFx3"
+
+Install .Net3.5:  Dism /online /Enable-Feature /FeatureName:"NetFx3"
 
 OpenModScan: https://github.com/sanny32/OpenModScan
 

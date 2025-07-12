@@ -8,9 +8,9 @@ usage:
 Depends: pip install pymodbus==2.5.3
 
 Example:
-read one register: ModbusWriteData.exe read 127.0.0.1 502 896 20
-read multiple registers: ModbusWriteData.exe read 127.0.0.1 502 1,401,897
-write: ModbusWriteData.exe write 127.0.0.1 502 896 1
+read one register: Modbusrw.exe read 127.0.0.1 502 896 20
+read multiple registers: Modbusrw.exe read 127.0.0.1 502 1,401,897
+write: Modbusrw.exe write 127.0.0.1 502 896 1
 
 Output will be saved to modbus_results.csv
 '''
@@ -18,7 +18,7 @@ Output will be saved to modbus_results.csv
 def process_host(mode, h, port, reg, value=1):
     try:
         client = ModbusTcpClient(h, port)
-        client.timeout = 0.5       
+        client.timeout = 1       
         if mode == 'read':
             if ',' in str(reg):
                 res = []
@@ -27,6 +27,7 @@ def process_host(mode, h, port, reg, value=1):
                         value = client.read_holding_registers(address=int(r), count=1).registers[0]
                         res.append(value)
                     except Exception as e:
+                        # res.append(str(h)+' failed')
                         res.append('failed')
                         break
                 client.close()
@@ -42,9 +43,9 @@ def process_host(mode, h, port, reg, value=1):
             try:
                 client.write_register(address=int(reg), value=int(value))
                 client.close()
-                return ['success']
+                return {'host': h, 'values': ['OK']}
             except Exception as e:
-                return ['failed']
+                return {'host': h, 'values': ['failed']}
         
     except Exception as e:
         return {'host': h, 'status': 'failed', 'error': str(e)}
@@ -64,7 +65,7 @@ if len(argv) >= 5:
         hosts = str(host).split(',')
         all_values = []
         
-        with ThreadPoolExecutor(max_workers=min(18, len(hosts))) as executor:
+        with ThreadPoolExecutor(max_workers=min(16, len(hosts))) as executor:
             futures = [executor.submit(process_host, mode, h, port, reg, value) for h in hosts]
             for future in as_completed(futures):
                 result = future.result()
@@ -72,7 +73,7 @@ if len(argv) >= 5:
         
         # Sort results by host
         sorted_results = sorted(all_values, key=lambda x: x['host'])
-        
+        # print(sorted_results)
         # Format output
         output = []
         for result in sorted_results:

@@ -36,7 +36,7 @@ def read_modbus_sync(ip, port=502):
     """
     try:
         client = ModbusTcpClient(ip, port=port)
-        client.timeout = 2  # set timeout seconds
+        client.timeout = 1  # set timeout seconds
         if not client.connect():
             return f"{ip}, fail"
         
@@ -59,11 +59,11 @@ async def main():
     dt = datetime.now().strftime("%Y%m%d-%H%M%S")
     if not os.path.exists("data"):
         os.makedirs("data")
-    file_path = f".\\data\\SocVolt_F1_{dt}.csv"
+    file_path = f".\\data\\SocVolt_F2_{dt}.csv"
 
     # Read IPs
     try:
-        with open("IP.txt", "r") as f:
+        with open("IP-F2.txt", "r") as f:
             ip_lines = [line.strip() for line in f.readlines() if line.strip()]
     except FileNotFoundError:
         print("Error: IP.txt not found.")

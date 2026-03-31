@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>SQLite → ECharts 可视化工具（多折线 + SQL，修正版）</title>
+<script src="https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/sql-wasm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<style>
+body { font-family: sans-serif; padding: 20px; }
+#chart { width: 100%; height: 520px; margin-top: 20px; border: 1px solid #ccc; }
+select, button, textarea { padding: 6px 10px; margin: 6px 0; }
+#yField { min-width: 220px; }
+textarea { width: 100%; height: 120px; font-family: monospace; }
+</style>
+</head>
+<body>
+
+<h2>📊 SQLite → ECharts 可视化工具（本地、多折线、SQL）</h2>
+<p>1. 选择 SQLite 文件 → 2. 选表/字段 或 写 SQL → 3. 生成图表</p>
+
+<!-- 去掉 accept 限制，支持无扩展名、带空格的文件 -->
+<input type="file" id="fileInput" />
+<br><br>
+
+<div>
+  <strong>表与字段选择模式：</strong><br>
+  <label>选择表：</label>
+  <select id="tableSelect"></select>
+
+  <label>横轴字段：</label>
+  <select id="xField"></select>
+
+  <label>纵轴字段（可多选）：</label>
+  <select id="yField" multiple size="4"></select>
+  <br>
+  <button id="drawBtn">根据表和字段生成图表</button>
+</div>
+
+<hr>
+
+<div>
+  <strong>SQL 查询编辑器模式：</strong>
+  <p>要求：查询结果的<strong>第一列作为 X 轴</strong>，后面每一列作为一条折线。</p>
+  <textarea id="sqlInput" placeholder="例如：SELECT time, value1, value2 FROM your_table ORDER BY time;"></textarea>
+  <button id="runSqlBtn">使用上面的 SQL 生成图表</button>
+</div>
+
+<div id="chart"></div>
+
+<script>
+let db;
+
+document.getElementById("fileInput").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+        const buffer = await file.arrayBuffer();
+
+        const SQL = await initSqlJs({
+            locateFile: f => `https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/${f}`
+        });
+
+        db = new SQL.Database(new Uint8Array(buffer));
+
+        let tables;
+        try {
+            tables = db.exec("SELECT name FROM sqlite_master WHERE type='table'");
+        } catch (err) {
+            alert("这看起来不像是一个有效的 SQLite 数据库文件。\n\n错误信息：\n" + err.message);
+            return;
+        }
+
+        const tableSelect = document.getElementById("tableSelect");
+        tableSelect.innerHTML = "";
+
+        if (!tables.length || !tables[0].values.length) {
+            alert("数据库中没有任何表（sqlite_master 为空）。");
+            return;
+        }
+
+        tables[0].values.forEach(row => {
+            const opt = document.createElement("option");
+            opt.value = row[0];
+            opt.textContent = row[0];
+            tableSelect.appendChild(opt);
+        });
+
+        loadFields();
+        <!-- alert("数据库加载成功，已检测到表结构。"); -->
+    } catch (err) {
+        alert("加载数据库文件失败：\n" + err.message);
+    }
+});
+
+document.getElementById("tableSelect").addEventListener("change", loadFields);
+
+function loadFields() {
+    if (!db) return;
+    const table = document.getElementById("tableSelect").value;
+    if (!table) return;
+
+    let res;
+    try {
+        res = db.exec(`PRAGMA table_info(${JSON.stringify(table)})`);
+    } catch (err) {
+        alert("读取表结构失败：\n" + err.message);
+        return;
+    }
+
+    if (!res.length) {
+        alert("无法读取表结构，PRAGMA table_info 返回空。");
+        return;
+    }
+
+    const fields = res[0].values.map(r => r[1]);
+
+    const xSel = document.getElementById("xField");
+    const ySel = document.getElementById("yField");
+
+    xSel.innerHTML = "";
+    ySel.innerHTML = "";
+
+    fields.forEach(f => {
+        const optX = document.createElement("option");
+        optX.value = f;
+        optX.textContent = f;
+        xSel.appendChild(optX);
+
+        const optY = document.createElement("option");
+        optY.value = f;
+        optY.textContent = f;
+        ySel.appendChild(optY);
+    });
+
+    if (xSel.options.length > 0) xSel.selectedIndex = 0;
+    for (let i = 1; i < ySel.options.length; i++) {
+        ySel.options[i].selected = true;
+    }
+}
+
+document.getElementById("drawBtn").addEventListener("click", () => {
+    if (!db) { alert("请先选择 SQLite 文件。"); return; }
+
+    const table = document.getElementById("tableSelect").value;
+    const xField = document.getElementById("xField").value;
+    const ySel = document.getElementById("yField");
+    const yFields = Array.from(ySel.selectedOptions).map(o => o.value);
+
+    if (!table || !xField || yFields.length === 0) {
+        alert("请先选择表、横轴字段和至少一个纵轴字段。");
+        return;
+    }
+
+    const fields = [xField, ...yFields];
+    const query = `SELECT ${fields.map(f => `"${f}"`).join(", ")} FROM "${table}"`;
+
+    drawFromQuery(query, fields);
+});
+
+document.getElementById("runSqlBtn").addEventListener("click", () => {
+    if (!db) { alert("请先选择 SQLite 文件。"); return; }
+    const sql = document.getElementById("sqlInput").value.trim();
+    if (!sql) {
+        alert("请先输入 SQL 查询语句。");
+        return;
+    }
+
+    try {
+        const res = db.exec(sql);
+        if (!res.length) {
+            alert("SQL 没有返回结果。");
+            return;
+        }
+        const cols = res[0].columns;
+        drawFromResult(res[0], cols);
+    } catch (e) {
+        alert("SQL 执行出错：\n" + e.message);
+    }
+});
+
+function drawFromQuery(query, fields) {
+    try {
+        const res = db.exec(query);
+        if (!res.length) {
+            alert("查询没有返回结果。");
+            return;
+        }
+        drawFromResult(res[0], fields);
+    } catch (e) {
+        alert("查询出错：\n" + e.message + "\n\nSQL：\n" + query);
+    }
+}
+
+function drawFromResult(result, fields) {
+    const rows = result.values;
+    if (!rows.length) {
+        alert("结果为空。");
+        return;
+    }
+
+    const xData = rows.map(r => r[0]);
+    const series = [];
+
+    for (let colIdx = 1; colIdx < result.columns.length; colIdx++) {
+        const name = fields ? (fields[colIdx] || result.columns[colIdx]) : result.columns[colIdx];
+        const data = rows.map(r => r[colIdx]);
+        series.push({
+            name,
+            type: 'line',
+            data,
+            smooth: true
+        });
+    }
+
+    const chartDom = document.getElementById("chart");
+    const chart = echarts.init(chartDom);
+
+    const option = {
+        tooltip: { trigger: 'axis' },
+        legend: { data: series.map(s => s.name) },
+        xAxis: { type: 'category', data: xData },
+        yAxis: { type: 'value' },
+        series
+    };
+
+    chart.setOption(option);
+}
+</script>
+
+</body>
+</html>

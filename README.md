@@ -12,7 +12,7 @@ Dism /online /Enable-Feature /FeatureName:"NetFx3"
 
 OpenModScan: https://github.com/sanny32/OpenModScan  
 ```
-msiexec.exe -i https://github.com/sanny32/OpenModScan/releases/download/1.11.1/qt5-omodscan_1.11.1-1_amd64.exe 
+msiexec.exe -i https://github.com/sanny32/OpenModScan/releases/download/1.15.0/qt5-omodscan-1.15.0_x64.exe 
 ```
 
 ### 1. VC runtime, VisualCppRedist_AIO download：https://www.tinyplease.com/vcpp;

@@ -1,8 +1,8 @@
-如果管理员cmd窗口运行 
+如果管理员cmd窗口运行(May2026 确认此命令可用): 
 ```
-winget install vcredist 
+winget install 'Visual C++ Redistributable AIO' 
 ```
-不行，可以从这里下载安装vc运行库：
+如果不行，可以从这里下载安装vc运行库：
 Download MSVC Runtime all in one from here：https://www.123pan.com/s/A6cA-BnoJh
 
 Install .Net3.5:  

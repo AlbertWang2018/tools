@@ -1,0 +1,261 @@
+soc,34,
+volt,32,
+I,33,
+MaxVc,36,
+MinVc,37,
+AvgVc,38,
+soc1,1059,
+soc2,2083,
+soc3,3107,
+soc4,4131,
+soc5,5155,
+volt1,1057,
+volt2,2081,
+volt3,3105,
+volt4,4129,
+volt5,5153,
+warn16,16,
+warn17,17,
+SysSta,770,
+IMM,907,
+SOCMaintReq,68,
+RemainCharge1,1078,
+RemainDischarge1,1079,
+HisChargeCapL1,1108,
+HisChargeCapH1,1109,
+HisDischargeCapL1,1110,
+HisDischargeCapH1,1111,
+RemainCharge2,2102,
+RemainDischarge2,2103,
+HisChargeCapL2,2132,
+HisChargeCapH2,2133,
+HisDischargeCapL2,2134,
+HisDischargeCapH2,2135,
+RemainCharge3,3126,
+RemainDischarge3,3127,
+HisChargeCapL3,3156,
+HisChargeCapH3,3157,
+HisDischargeCapL3,3158,
+HisDischargeCapH3,3159,
+RemainCharge4,4150,
+RemainDischarge4,4151,
+HisChargeCapL4,4180,
+HisChargeCapH4,4181,
+HisDischargeCapL4,4182,
+HisDischargeCapH4,4183,
+RemainCharge5,5174,
+RemainDischarge5,5175,
+HisChargeCapL5,5204,
+HisChargeCapH5,5205,
+HisDischargeCapL5,5206,
+HisDischargeCapH5,5207,
+EnvTemp,56,
+auxpl,898,
+ChrgSOE,47,
+DisChrgSOE,48,
+CSOC1,1076,
+DSOC1,1077,
+CSOC2,2100,
+DSOC2,2101,
+CSOC3,3124,
+DSOC3,3125,
+CSOC4,4148,
+DSOC4,4149,
+CSOC5,5172,
+DSOC5,5173,
+TMSOutWT,108,
+TMSInWT,109,
+TMSRealMode,107,
+Dehum2,18,
+SBMUWarn5,5,
+SBMUWarn6,6,
+TmsFaultCode,111,
+MaxCellTemp,1064,
+MaxCTPosition,1074,
+SSV1,1080,
+SSV2,2104,
+SSV3,3128,
+SSV4,4152,
+SSV5,5176,
+CS1,1135,
+CS2,2159,
+CS3,3183,
+CS4,4207,
+CS5,5231,
+StrEn,909,
+SC0,0,
+SC2,2,
+MinVc1,1062,
+MinVc2,2086,
+MinVc3,3110,
+MinVc4,4134,
+MinVc5,5158,
+Reg8,8,
+MaxCI1,1067,
+MaxCI2,2091,
+MaxCI3,3115,
+MaxCI4,4139,
+MaxCI5,5163,
+MaxDisCI1,1068,
+MaxDisCI2,2092,
+MaxDisCI3,3116,
+MaxDisCI4,4140,
+MaxDisCI5,5164,
+NumRacksHvOn,772,
+Reg0,0,
+Reg1,1,
+Reg2,2,
+Reg3,3,
+Reg4,4,
+Reg5,5,
+Reg6,6,
+Reg7,7,
+Reg8,8,
+Reg9,9,
+Reg10,10,
+Reg11,11,
+Reg12,12,
+Reg13,13,
+Reg14,14,
+Reg15,15,
+Reg16,16,
+Reg17,17,
+Reg18,18,
+Reg19,19,
+Reg20,20,
+Reg21,21,
+Reg22,22,
+Reg23,23,
+Reg24,24,
+Reg25,25,
+Reg26,26,
+Reg27,27,
+Reg28,28,
+Reg29,29,
+Reg30,30,
+Reg31,31,
+Battery Subsystem Voltage Outside,1056,BatterySubsystemVoltageOutside-SBMU1
+Battery Subsystem Voltage Inside,1057,BatterySubsystemVoltageInside-SBMU1
+Battery Subsystem Current,1058,BatterySubsystemCurrent-SBMU1
+SOC,1059,SOC-SBMU1
+SOH,1060,SOH-SBMU1
+Max single cell voltage,1061,Maxsinglecellvoltage-SBMU1
+Min single cell voltage,1062,Minsinglecellvoltage-SBMU1
+Avg. cell voltage,1063,Avg.cellvoltage-SBMU1
+Max single cell temperature,1064,Maxsinglecelltemperature-SBMU1
+Min single cell temperature,1065,Minsinglecelltemperature-SBMU1
+Avg. single cell temperature,1066,Avg.singlecelltemperature-SBMU1
+Max allowed charge current,1067,Maxallowedchargecurrent-SBMU1
+Max allowed discharge current,1068,Maxalloweddischargecurrent-SBMU1
+Max charge power allowed,1069,Maxchargepowerallowed-SBMU1
+Max discharge power allowed,1070,Maxdischargepowerallowed-SBMU1
+Battery subsystem power,1071,Batterysubsystempower-SBMU1
+Max single cell voltage position,1072,Maxsinglecellvoltageposition-SBMU1
+Min single cell voltage position,1073,Minsinglecellvoltageposition-SBMU1
+Max single cell temperature position,1074,Maxsinglecelltemperatureposition-SBMU1
+Min single cell temperature position,1075,Minsinglecelltemperatureposition-SBMU1
+Charge SOE,1076,ChargeSOE-SBMU1
+Discharge SOE,1077,DischargeSOE-SBMU1
+Subsystem remains charging energy,1078,Subsystemremainschargingenergy-SBMU1
+Subsystem remains discharging energy,1079,Subsystemremainsdischargingenergy-SBMU1
+Sum of cell voltage,1080,Sumofcellvoltage-SBMU1
+Battery Subsystem Voltage Outside,2080,BatterySubsystemVoltageOutside-SBMU2
+Battery Subsystem Voltage Inside,2081,BatterySubsystemVoltageInside-SBMU2
+Battery Subsystem Current,2082,BatterySubsystemCurrent-SBMU2
+SOC,2083,SOC-SBMU2
+SOH,2084,SOH-SBMU2
+Max single cell voltage,2085,Maxsinglecellvoltage-SBMU2
+Min single cell voltage,2086,Minsinglecellvoltage-SBMU2
+Avg. cell voltage,2087,Avg.cellvoltage-SBMU2
+Max single cell temperature,2088,Maxsinglecelltemperature-SBMU2
+Min single cell temperature,2089,Minsinglecelltemperature-SBMU2
+Avg. single cell temperature,2090,Avg.singlecelltemperature-SBMU2
+Max allowed charge current,2091,Maxallowedchargecurrent-SBMU2
+Max allowed discharge current,2092,Maxalloweddischargecurrent-SBMU2
+Max charge power allowed,2093,Maxchargepowerallowed-SBMU2
+Max discharge power allowed,2094,Maxdischargepowerallowed-SBMU2
+Battery subsystem power,2095,Batterysubsystempower-SBMU2
+Max single cell voltage position,2096,Maxsinglecellvoltageposition-SBMU2
+Min single cell voltage position,2097,Minsinglecellvoltageposition-SBMU2
+Max single cell temperature position,2098,Maxsinglecelltemperatureposition-SBMU2
+Min single cell temperature position,2099,Minsinglecelltemperatureposition-SBMU2
+Charge SOE,2100,ChargeSOE-SBMU2
+Discharge SOE,2101,DischargeSOE-SBMU2
+Subsystem remains charging energy,2102,Subsystemremainschargingenergy-SBMU2
+Subsystem remains discharging energy,2103,Subsystemremainsdischargingenergy-SBMU2
+Sum of cell voltage,2104,Sumofcellvoltage-SBMU2
+Battery Subsystem Voltage Outside,3104,BatterySubsystemVoltageOutside-SBMU3
+Battery Subsystem Voltage Inside,3105,BatterySubsystemVoltageInside-SBMU3
+Battery Subsystem Current,3106,BatterySubsystemCurrent-SBMU3
+SOC,3107,SOC-SBMU3
+SOH,3108,SOH-SBMU3
+Max single cell voltage,3109,Maxsinglecellvoltage-SBMU3
+Min single cell voltage,3110,Minsinglecellvoltage-SBMU3
+Avg. cell voltage,3111,Avg.cellvoltage-SBMU3
+Max single cell temperature,3112,Maxsinglecelltemperature-SBMU3
+Min single cell temperature,3113,Minsinglecelltemperature-SBMU3
+Avg. single cell temperature,3114,Avg.singlecelltemperature-SBMU3
+Max allowed charge current,3115,Maxallowedchargecurrent-SBMU3
+Max allowed discharge current,3116,Maxalloweddischargecurrent-SBMU3
+Max charge power allowed,3117,Maxchargepowerallowed-SBMU3
+Max discharge power allowed,3118,Maxdischargepowerallowed-SBMU3
+Battery subsystem power,3119,Batterysubsystempower-SBMU3
+Max single cell voltage position,3120,Maxsinglecellvoltageposition-SBMU3
+Min single cell voltage position,3121,Minsinglecellvoltageposition-SBMU3
+Max single cell temperature position,3122,Maxsinglecelltemperatureposition-SBMU3
+Min single cell temperature position,3123,Minsinglecelltemperatureposition-SBMU3
+Charge SOE,3124,ChargeSOE-SBMU3
+Discharge SOE,3125,DischargeSOE-SBMU3
+Subsystem remains charging energy,3126,Subsystemremainschargingenergy-SBMU3
+Subsystem remains discharging energy,3127,Subsystemremainsdischargingenergy-SBMU3
+Sum of cell voltage,3128,Sumofcellvoltage-SBMU3
+Battery Subsystem Voltage Outside,4128,BatterySubsystemVoltageOutside-SBMU4
+Battery Subsystem Voltage Inside,4129,BatterySubsystemVoltageInside-SBMU4
+Battery Subsystem Current,4130,BatterySubsystemCurrent-SBMU4
+SOC,4131,SOC-SBMU4
+SOH,4132,SOH-SBMU4
+Max single cell voltage,4133,Maxsinglecellvoltage-SBMU4
+Min single cell voltage,4134,Minsinglecellvoltage-SBMU4
+Avg. cell voltage,4135,Avg.cellvoltage-SBMU4
+Max single cell temperature,4136,Maxsinglecelltemperature-SBMU4
+Min single cell temperature,4137,Minsinglecelltemperature-SBMU4
+Avg. single cell temperature,4138,Avg.singlecelltemperature-SBMU4
+Max allowed charge current,4139,Maxallowedchargecurrent-SBMU4
+Max allowed discharge current,4140,Maxalloweddischargecurrent-SBMU4
+Max charge power allowed,4141,Maxchargepowerallowed-SBMU4
+Max discharge power allowed,4142,Maxdischargepowerallowed-SBMU4
+Battery subsystem power,4143,Batterysubsystempower-SBMU4
+Max single cell voltage position,4144,Maxsinglecellvoltageposition-SBMU4
+Min single cell voltage position,4145,Minsinglecellvoltageposition-SBMU4
+Max single cell temperature position,4146,Maxsinglecelltemperatureposition-SBMU4
+Min single cell temperature position,4147,Minsinglecelltemperatureposition-SBMU4
+Charge SOE,4148,ChargeSOE-SBMU4
+Discharge SOE,4149,DischargeSOE-SBMU4
+Subsystem remains charging energy,4150,Subsystemremainschargingenergy-SBMU4
+Subsystem remains discharging energy,4151,Subsystemremainsdischargingenergy-SBMU4
+Sum of cell voltage,4152,Sumofcellvoltage-SBMU4
+Battery Subsystem Voltage Outside,5152,BatterySubsystemVoltageOutside-SBMU5
+Battery Subsystem Voltage Inside,5153,BatterySubsystemVoltageInside-SBMU5
+Battery Subsystem Current,5154,BatterySubsystemCurrent-SBMU5
+SOC,5155,SOC-SBMU5
+SOH,5156,SOH-SBMU5
+Max single cell voltage,5157,Maxsinglecellvoltage-SBMU5
+Min single cell voltage,5158,Minsinglecellvoltage-SBMU5
+Avg. cell voltage,5159,Avg.cellvoltage-SBMU5
+Max single cell temperature,5160,Maxsinglecelltemperature-SBMU5
+Min single cell temperature,5161,Minsinglecelltemperature-SBMU5
+Avg. single cell temperature,5162,Avg.singlecelltemperature-SBMU5
+Max allowed charge current,5163,Maxallowedchargecurrent-SBMU5
+Max allowed discharge current,5164,Maxalloweddischargecurrent-SBMU5
+Max charge power allowed,5165,Maxchargepowerallowed-SBMU5
+Max discharge power allowed,5166,Maxdischargepowerallowed-SBMU5
+Battery subsystem power,5167,Batterysubsystempower-SBMU5
+Max single cell voltage position,5168,Maxsinglecellvoltageposition-SBMU5
+Min single cell voltage position,5169,Minsinglecellvoltageposition-SBMU5
+Max single cell temperature position,5170,Maxsinglecelltemperatureposition-SBMU5
+Min single cell temperature position,5171,Minsinglecelltemperatureposition-SBMU5
+Charge SOE,5172,ChargeSOE-SBMU5
+Discharge SOE,5173,DischargeSOE-SBMU5
+Subsystem remains charging energy,5174,Subsystemremainschargingenergy-SBMU5
+Subsystem remains discharging energy,5175,Subsystemremainsdischargingenergy-SBMU5
+Sum of cell voltage,5176,Sumofcellvoltage-SBMU5

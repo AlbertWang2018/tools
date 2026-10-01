@@ -114,7 +114,7 @@ async def main():
     # Write to CSV
     with open(file_path, "w", encoding="utf-8", newline="") as f:
         for row in sorted_rows:
-            f.write(",".join(row) + "\n")
+            f.write(",".join(row) + "\r\n")
 
     print(f"{dt}: data has been written to {file_path}, Total time: {datetime.now() - Start}")
 
